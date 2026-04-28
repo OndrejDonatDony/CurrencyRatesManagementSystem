@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="cs" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard kurzů</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <script th:src="@{/js/app.js}" defer></script>
+</head>
+<body>
+
+<h1>Dashboard měnových kurzů</h1>
+
+<p th:if="${error}" th:text="${error}" class="error"></p>
+
+<form th:action="@{/dashboard}" method="post">
+    <div>
+        <label>Base měna:</label>
+        <input type="text" name="base" th:value="${base}" placeholder="EUR">
+    </div>
+
+    <div>
+        <label>Měny:</label>
+        <input type="text" name="symbols" th:value="${symbols}" placeholder="USD,CZK,GBP">
+    </div>
+
+    <div>
+        <label>Začátek období:</label>
+        <input type="date" name="startDate" th:value="${startDate}">
+    </div>
+
+    <div>
+        <label>Konec období:</label>
+        <input type="date" name="endDate" th:value="${endDate}">
+    </div>
+
+    <button type="submit">Načíst data</button>
+</form>
+
+<hr>
+
+<div th:if="${latest != null}">
+    <h2>Aktuální kurzy</h2>
+
+    <p>
+        Base: <strong th:text="${latest.base}"></strong><br>
+        Datum: <strong th:text="${latest.date}"></strong>
+    </p>
+
+    <table>
+        <tr>
+            <th>Měna</th>
+            <th>Kurz</th>
+        </tr>
+
+        <tr th:each="rate : ${latest.rates}">
+            <td th:text="${rate.key}"></td>
+            <td th:text="${#numbers.formatDecimal(rate.value, 1, 4)}"></td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${analysis != null}">
+    <h2>Analýza</h2>
+
+    <p>
+        Nejsilnější měna:
+        <strong th:text="${analysis.strongestCurrency}"></strong>
+        =
+        <span th:text="${#numbers.formatDecimal(analysis.strongestValue, 1, 4)}"></span>
+    </p>
+
+    <p>
+        Nejslabší měna:
+        <strong th:text="${analysis.weakestCurrency}"></strong>
+        =
+        <span th:text="${#numbers.formatDecimal(analysis.weakestValue, 1, 4)}"></span>
+    </p>
+</div>
+
+<div th:if="${average != null}">
+    <h2>Průměrné kurzy</h2>
+
+    <p>
+        Období:
+        <strong th:text="${average.startDate}"></strong>
+        až
+        <strong th:text="${average.endDate}"></strong>
+    </p>
+
+    <table>
+        <tr>
+            <th>Měna</th>
+            <th>Průměrný kurz</th>
+        </tr>
+
+        <tr th:each="avg : ${average.averageRates}">
+            <td th:text="${avg.key}"></td>
+            <td th:text="${#numbers.formatDecimal(avg.value, 1, 4)}"></td>
+        </tr>
+    </table>
+</div>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Odhlásit</button>
+</form>
+
+</body>
+</html>

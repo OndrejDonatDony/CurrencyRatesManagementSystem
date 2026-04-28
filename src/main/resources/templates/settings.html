@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+</head>
+<body>
+
+<h1>Settings</h1>
+
+<form action="/settings" method="post">
+    <label>Base currency:</label>
+    <input type="text" name="baseCurrency" th:value="${settings.baseCurrency}" />
+
+    <br><br>
+
+    <label>Selected currencies:</label>
+    <input type="text" name="selectedCurrencies" th:value="${settings.selectedCurrencies}" />
+
+    <br><br>
+
+    <button type="submit">Save</button>
+</form>
+
+</body>
+</html>
