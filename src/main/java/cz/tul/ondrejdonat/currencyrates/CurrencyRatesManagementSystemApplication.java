@@ -20,8 +20,7 @@ public class CurrencyRatesManagementSystemApplication {
 
             if (settingsService.getSettings() == null) {
 
-                UserSettings settings =
-                        new UserSettings(null, "EUR", "USD,CZK,GBP");
+                UserSettings settings = new UserSettings(1L, "EUR", "USD,CZK,GBP");
 
                 settingsService.saveSettings(settings);
             }
