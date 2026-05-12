@@ -31,7 +31,7 @@ public class SettingsControllerTest {
     @Test
     public void testGetSettings() throws Exception {
 
-        when(settingsService.getSettingsById(1L))
+        when(settingsService.getSettings())
                 .thenReturn(new UserSettings(1L, "EUR", "USD,CZK"));
 
         mockMvc.perform(get("/settings"))
@@ -41,9 +41,12 @@ public class SettingsControllerTest {
     @Test
     public void testUpdateSettings() throws Exception {
 
+        when(settingsService.getSettings())
+                .thenReturn(new UserSettings(1L, "EUR", "USD,CZK"));
+
         mockMvc.perform(post("/settings")
                         .param("baseCurrency", "EUR")
                         .param("selectedCurrencies", "USD,CZK"))
-                .andExpect(status().is3xxRedirection());
+                .andExpect(status().isOk());
     }
 }
