@@ -12,6 +12,6 @@ spring:
 
 exchange:
   api:
-    key: ${EXCHANGE_API_KEY}
+    key: Fs7adyJzaZo1by1kMtocduZZoUNTVCBA
 #${EXCHANGE_API_KEY}
 #Fs7adyJzaZo1by1kMtocduZZoUNTVCBA
