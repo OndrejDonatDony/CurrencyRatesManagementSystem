@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Component
-public class ExchangeRateApiClient {
+public class ExchangeRateApiClien {
 
     private final RestTemplate restTemplate;
     private final String apiKey;
