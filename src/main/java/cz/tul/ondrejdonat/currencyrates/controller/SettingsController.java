@@ -18,8 +18,15 @@ public class SettingsController {
     }
 
     @GetMapping("/settings")
-    public String getSettings(Model model) {
-        UserSettings settings = settingsService.getSettingsById(1L);
+    public String settings(Model model) {
+
+        UserSettings settings = settingsService.getSettings();
+
+        if (settings == null) {
+            settings = new UserSettings();
+            settings.setBaseCurrency("EUR");
+            settings.setSelectedCurrencies("USD,CZK,GBP");
+        }
 
         model.addAttribute("settings", settings);
 
@@ -27,14 +34,24 @@ public class SettingsController {
     }
 
     @PostMapping("/settings")
-    public String updateSettings(@RequestParam String baseCurrency,
-                                 @RequestParam String selectedCurrencies) {
+    public String saveSettings(@RequestParam String baseCurrency,
+                               @RequestParam String selectedCurrencies,
+                               Model model) {
 
-        UserSettings settings =
-                new UserSettings(1L, baseCurrency, selectedCurrencies);
+        UserSettings settings = settingsService.getSettings();
+
+        if (settings == null) {
+            settings = new UserSettings();
+        }
+
+        settings.setBaseCurrency(baseCurrency);
+        settings.setSelectedCurrencies(selectedCurrencies);
 
         settingsService.saveSettings(settings);
 
-        return "redirect:/settings";
+        model.addAttribute("settings", settings);
+        model.addAttribute("success", "Nastavení bylo uloženo.");
+
+        return "settings";
     }
 }

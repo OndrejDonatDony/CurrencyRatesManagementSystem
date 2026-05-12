@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="cs" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title th:text="#{title} + ' - ' + #{login}">
+        Správa měnových kurzů - Přihlášení
+    </title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+<nav>
+    <span class="right">
+        <a th:href="@{/login(lang='cs')}">CZ</a>
+        |
+        <a th:href="@{/login(lang='en')}">EN</a>
+    </span>
+</nav>
+
+<div class="login-container">
+
+    <h2 th:text="#{login}">
+        Přihlášení
+    </h2>
+
+    <form th:action="@{/login}" method="post">
+
+        <label th:text="#{username}">
+            Uživatelské jméno
+        </label>
+
+        <input type="text" name="username">
+
+        <label th:text="#{password}">
+            Heslo
+        </label>
+
+        <input type="password" name="password">
+
+        <button type="submit" th:text="#{login}">
+            Přihlášení
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

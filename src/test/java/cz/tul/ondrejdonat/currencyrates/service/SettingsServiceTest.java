@@ -1,5 +1,4 @@
 package cz.tul.ondrejdonat.currencyrates.service;
-
 import cz.tul.ondrejdonat.currencyrates.exception.SettingsNotFoundException;
 import cz.tul.ondrejdonat.currencyrates.model.entity.UserSettings;
 import cz.tul.ondrejdonat.currencyrates.repository.UserSettingsRepository;

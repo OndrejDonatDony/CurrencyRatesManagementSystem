@@ -1,5 +1,4 @@
 package cz.tul.ondrejdonat.currencyrates.service;
-
 import cz.tul.ondrejdonat.currencyrates.exception.ApiException;
 import cz.tul.ondrejdonat.currencyrates.model.dto.AnalysisResultDto;
 import cz.tul.ondrejdonat.currencyrates.model.dto.AverageRatesDto;

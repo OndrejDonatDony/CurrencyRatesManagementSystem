@@ -3,8 +3,10 @@ package cz.tul.ondrejdonat.currencyrates.controller;
 import cz.tul.ondrejdonat.currencyrates.model.dto.AnalysisResultDto;
 import cz.tul.ondrejdonat.currencyrates.model.dto.AverageRatesDto;
 import cz.tul.ondrejdonat.currencyrates.model.dto.ExchangeRateResponse;
+import cz.tul.ondrejdonat.currencyrates.model.entity.UserSettings;
 import cz.tul.ondrejdonat.currencyrates.service.AnalysisService;
 import cz.tul.ondrejdonat.currencyrates.service.ExchangeRateService;
+import cz.tul.ondrejdonat.currencyrates.service.SettingsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +18,19 @@ public class ViewController {
 
     private final ExchangeRateService exchangeRateService;
     private final AnalysisService analysisService;
+    private final SettingsService settingsService;
 
     public ViewController(ExchangeRateService exchangeRateService,
-                          AnalysisService analysisService) {
+                          AnalysisService analysisService,
+                          SettingsService settingsService) {
         this.exchangeRateService = exchangeRateService;
         this.analysisService = analysisService;
+        this.settingsService = settingsService;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
     @GetMapping("/")
@@ -30,8 +40,15 @@ public class ViewController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        model.addAttribute("base", "EUR");
-        model.addAttribute("symbols", "USD,CZK,GBP");
+        UserSettings settings = settingsService.getSettings();
+
+        if (settings != null) {
+            model.addAttribute("base", settings.getBaseCurrency());
+            model.addAttribute("symbols", settings.getSelectedCurrencies());
+        } else {
+            model.addAttribute("base", "EUR");
+            model.addAttribute("symbols", "USD,CZK,GBP");
+        }
 
         return "dashboard";
     }
