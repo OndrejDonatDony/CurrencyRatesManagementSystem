@@ -17,7 +17,8 @@ public class ViewController {
     private final ExchangeRateService exchangeRateService;
     private final AnalysisService analysisService;
 
-    public ViewController(ExchangeRateService exchangeRateService, AnalysisService analysisService) {
+    public ViewController(ExchangeRateService exchangeRateService,
+                          AnalysisService analysisService) {
         this.exchangeRateService = exchangeRateService;
         this.analysisService = analysisService;
     }
@@ -31,17 +32,17 @@ public class ViewController {
     public String dashboard(Model model) {
         model.addAttribute("base", "EUR");
         model.addAttribute("symbols", "USD,CZK,GBP");
+
         return "dashboard";
     }
 
     @PostMapping("/dashboard")
-    public String loadData(
-            @RequestParam String base,
-            @RequestParam String symbols,
-            @RequestParam(required = false) String startDate,
-            @RequestParam(required = false) String endDate,
-            Model model
-    ) {
+    public String loadData(@RequestParam String base,
+                           @RequestParam String symbols,
+                           @RequestParam(required = false) String startDate,
+                           @RequestParam(required = false) String endDate,
+                           Model model) {
+
         model.addAttribute("base", base);
         model.addAttribute("symbols", symbols);
         model.addAttribute("startDate", startDate);
@@ -57,8 +58,11 @@ public class ViewController {
             return "dashboard";
         }
 
-        ExchangeRateResponse latest = exchangeRateService.getLatestRates(base, symbols);
-        AnalysisResultDto analysis = analysisService.analyzeLatestRates(base, symbols);
+        ExchangeRateResponse latest =
+                exchangeRateService.getLatestRates(base, symbols);
+
+        AnalysisResultDto analysis =
+                analysisService.analyzeLatestRates(base, symbols);
 
         model.addAttribute("latest", latest);
         model.addAttribute("analysis", analysis);
@@ -66,12 +70,8 @@ public class ViewController {
         if (startDate != null && !startDate.isBlank()
                 && endDate != null && !endDate.isBlank()) {
 
-            AverageRatesDto average = analysisService.calculateAverageRates(
-                    base,
-                    symbols,
-                    startDate,
-                    endDate
-            );
+            AverageRatesDto average =
+                    analysisService.calculateAverageRates(base, symbols, startDate, endDate);
 
             model.addAttribute("average", average);
         }

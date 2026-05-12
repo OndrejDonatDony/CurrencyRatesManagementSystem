@@ -1,15 +1,14 @@
 package cz.tul.ondrejdonat.currencyrates.exception;
 
 import cz.tul.ondrejdonat.currencyrates.service.LogService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.HashMap;
 import java.util.Map;
 
-@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -21,31 +20,34 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<Map<String, String>> handleApiException(ApiException e) {
-        log.error("API chyba: {}", e.getMessage(), e);
-        logService.log("ERROR", "API chyba: " + e.getMessage());
 
-        return ResponseEntity
-                .status(HttpStatus.BAD_GATEWAY)
-                .body(Map.of("error", e.getMessage()));
+        logService.log("ERROR", e.getMessage());
+
+        Map<String, String> response = new HashMap<>();
+        response.put("error", e.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_GATEWAY);
     }
 
     @ExceptionHandler(SettingsNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleSettingsException(SettingsNotFoundException e) {
-        log.error("Chyba nastaveni: {}", e.getMessage(), e);
-        logService.log("ERROR", "Chyba nastaveni: " + e.getMessage());
 
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(Map.of("error", e.getMessage()));
+        logService.log("ERROR", e.getMessage());
+
+        Map<String, String> response = new HashMap<>();
+        response.put("error", e.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleGeneralException(Exception e) {
-        log.error("Necekana chyba aplikace: {}", e.getMessage(), e);
-        logService.log("ERROR", "Necekana chyba aplikace: " + e.getMessage());
+    public ResponseEntity<Map<String, String>> handleException(Exception e) {
 
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Doslo k neocekavane chybe aplikace."));
+        logService.log("ERROR", e.getMessage());
+
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "Neocekavana chyba.");
+
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
