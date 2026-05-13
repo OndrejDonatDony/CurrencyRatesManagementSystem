@@ -16,7 +16,6 @@ public class SettingsController {
     public SettingsController(SettingsService settingsService) {
         this.settingsService = settingsService;
     }
-
     @GetMapping("/settings")
     public String settings(Model model) {
 
@@ -32,7 +31,6 @@ public class SettingsController {
 
         return "settings";
     }
-
     @PostMapping("/settings")
     public String saveSettings(@RequestParam String baseCurrency,
                                @RequestParam String selectedCurrencies,
@@ -43,7 +41,6 @@ public class SettingsController {
         if (settings == null) {
             settings = new UserSettings();
         }
-
         settings.setBaseCurrency(baseCurrency);
         settings.setSelectedCurrencies(selectedCurrencies);
 

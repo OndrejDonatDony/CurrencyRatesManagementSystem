@@ -59,7 +59,6 @@ public class ViewController {
                            @RequestParam(required = false) String startDate,
                            @RequestParam(required = false) String endDate,
                            Model model) {
-
         model.addAttribute("base", base);
         model.addAttribute("symbols", symbols);
         model.addAttribute("startDate", startDate);
@@ -69,12 +68,10 @@ public class ViewController {
             model.addAttribute("error", "Zadej base měnu.");
             return "dashboard";
         }
-
         if (symbols == null || symbols.isBlank()) {
             model.addAttribute("error", "Zadej seznam měn.");
             return "dashboard";
         }
-
         ExchangeRateResponse latest =
                 exchangeRateService.getLatestRates(base, symbols);
 

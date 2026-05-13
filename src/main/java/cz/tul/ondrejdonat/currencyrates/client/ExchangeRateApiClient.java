@@ -26,7 +26,6 @@ public class ExchangeRateApiClient {
         String url = "https://api.apilayer.com/exchangerates_data/latest"
                 + "?base=" + base
                 + "&symbols=" + symbols;
-
         try {
             ResponseEntity<ExchangeRateResponse> response = restTemplate.exchange(
                     url,
@@ -40,11 +39,11 @@ public class ExchangeRateApiClient {
                 throw new ApiException("API nevratilo zadna data.");
             }
 
+
             if (!body.isSuccess()) {
                 throw new ApiException(getApiError(body.getError()));
             }
             return body;
-
         } catch (RestClientException e) {
             log.error("Nepodarilo se nacist aktualni kurzy", e);
             throw new ApiException("Nepodarilo se nacist aktualni kurzy.");

@@ -18,7 +18,6 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
         );
-
         http.formLogin(form -> form
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
@@ -32,7 +31,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         return new InMemoryUserDetailsManager(

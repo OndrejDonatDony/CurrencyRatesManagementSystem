@@ -22,8 +22,6 @@ public class SettingsService {
 
         return userSettingsRepository.save(settings);
     }
-
-    // 👇 NOVÁ METODA
     public UserSettings getSettings() {
         log.info("Nacitam uzivatelska nastaveni.");
 
@@ -33,7 +31,6 @@ public class SettingsService {
                 .orElse(null);
     }
 
-    // (můžeš klidně smazat, pokud nepoužíváš)
     public UserSettings getSettingsById(Long id) {
         log.info("Nacitam uzivatelska nastaveni pro id={}", id);
 

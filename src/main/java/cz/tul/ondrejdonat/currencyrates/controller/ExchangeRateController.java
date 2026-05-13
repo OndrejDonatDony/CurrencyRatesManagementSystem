@@ -27,6 +27,7 @@ public class ExchangeRateController {
     @GetMapping("/latest")
     public ExchangeRateResponse getLatestRates(@RequestParam String base,
                                                @RequestParam String symbols) {
+
         return exchangeRateService.getLatestRates(base, symbols);
     }
 
@@ -37,13 +38,11 @@ public class ExchangeRateController {
                                             @RequestParam String endDate) {
         return exchangeRateService.getTimeseries(base, symbols, startDate, endDate);
     }
-
     @GetMapping("/analysis")
     public AnalysisResultDto analyzeLatestRates(@RequestParam String base,
                                                 @RequestParam String symbols) {
         return analysisService.analyzeLatestRates(base, symbols);
     }
-
     @GetMapping("/average")
     public AverageRatesDto getAverageRates(@RequestParam String base,
                                            @RequestParam String symbols,

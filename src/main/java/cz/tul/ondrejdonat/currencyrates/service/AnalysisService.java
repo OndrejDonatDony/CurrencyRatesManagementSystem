@@ -46,7 +46,6 @@ public class AnalysisService {
                 strongestValue = value;
                 strongestCurrency = currency;
             }
-
             if (weakestValue == null || value < weakestValue) {
                 weakestValue = value;
                 weakestCurrency = currency;
@@ -75,6 +74,7 @@ public class AnalysisService {
         }
 
         Map<String, Double> sums = new HashMap<>();
+
         Map<String, Integer> counts = new HashMap<>();
 
         for (Map<String, Double> dailyRates : response.getRates().values()) {
@@ -85,7 +85,6 @@ public class AnalysisService {
                 if (rate == null) {
                     continue;
                 }
-
                 sums.put(currency, sums.getOrDefault(currency, 0.0) + rate);
                 counts.put(currency, counts.getOrDefault(currency, 0) + 1);
             }

@@ -16,6 +16,7 @@ public class ExchangeRateService {
         this.exchangeRateApiClient = exchangeRateApiClient;
     }
 
+
     public ExchangeRateResponse getLatestRates(String base, String symbols) {
         log.info("Service vrstva: ziskani aktualnich kurzu.");
         return exchangeRateApiClient.getLatestRates(base, symbols);

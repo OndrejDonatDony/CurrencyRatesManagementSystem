@@ -17,7 +17,6 @@ public class GlobalExceptionHandler {
     public GlobalExceptionHandler(LogService logService) {
         this.logService = logService;
     }
-
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<Map<String, String>> handleApiException(ApiException e) {
 
@@ -31,7 +30,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SettingsNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleSettingsException(SettingsNotFoundException e) {
-
         logService.log("ERROR", e.getMessage());
 
         Map<String, String> response = new HashMap<>();
@@ -44,7 +42,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleException(Exception e) {
 
         logService.log("ERROR", e.getMessage());
-
         Map<String, String> response = new HashMap<>();
         response.put("error", "Neocekavana chyba.");
 

@@ -13,7 +13,6 @@ import java.util.Locale;
 
 @Configuration
 public class LocaleConfig implements WebMvcConfigurer {
-
     @Bean
     public LocaleResolver localeResolver() {
 
@@ -42,12 +41,12 @@ public class LocaleConfig implements WebMvcConfigurer {
         ResourceBundleMessageSource source =
                 new ResourceBundleMessageSource();
 
+
         source.setBasename("messages");
         source.setDefaultEncoding("UTF-8");
 
         return source;
     }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
