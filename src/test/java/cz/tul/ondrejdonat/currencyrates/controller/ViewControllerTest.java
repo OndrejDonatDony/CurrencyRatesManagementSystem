@@ -19,6 +19,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import cz.tul.ondrejdonat.currencyrates.model.dto.AverageRatesDto;
+import cz.tul.ondrejdonat.currencyrates.model.entity.UserSettings;
 
 @WebMvcTest(ViewController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -87,6 +89,58 @@ public class ViewControllerTest {
         mockMvc.perform(post("/dashboard")
                         .param("base", "EUR")
                         .param("symbols", ""))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void testDashboardWithSettings() throws Exception {
+
+        when(settingsService.getSettings())
+                .thenReturn(new UserSettings(1L, "CZK", "EUR,USD"));
+
+        mockMvc.perform(get("/dashboard"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDashboardWithoutSettings() throws Exception {
+
+        when(settingsService.getSettings())
+                .thenReturn(null);
+
+        mockMvc.perform(get("/dashboard"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testLoadDataWithAverage() throws Exception {
+
+        ExchangeRateResponse response = new ExchangeRateResponse();
+        response.setBase("EUR");
+        response.setRates(Map.of("USD", 1.1));
+
+        AnalysisResultDto analysis = new AnalysisResultDto();
+        analysis.setStrongestCurrency("USD");
+        analysis.setWeakestCurrency("USD");
+
+        AverageRatesDto average = new AverageRatesDto();
+        average.setBase("EUR");
+        average.setAverageRates(Map.of("USD", 1.15));
+
+        when(exchangeRateService.getLatestRates("EUR", "USD"))
+                .thenReturn(response);
+
+        when(analysisService.analyzeLatestRates("EUR", "USD"))
+                .thenReturn(analysis);
+
+        when(analysisService.calculateAverageRates(
+                "EUR", "USD", "2026-04-27", "2026-04-28"))
+                .thenReturn(average);
+
+        mockMvc.perform(post("/dashboard")
+                        .param("base", "EUR")
+                        .param("symbols", "USD")
+                        .param("startDate", "2026-04-27")
+                        .param("endDate", "2026-04-28"))
                 .andExpect(status().isOk());
     }
 }

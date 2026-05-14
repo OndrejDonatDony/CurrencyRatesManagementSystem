@@ -49,4 +49,26 @@ public class SettingsControllerTest {
                         .param("selectedCurrencies", "USD,CZK"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testGetSettingsWhenNull() throws Exception {
+
+        when(settingsService.getSettings())
+                .thenReturn(null);
+
+        mockMvc.perform(get("/settings"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpdateSettingsWhenNull() throws Exception {
+
+        when(settingsService.getSettings())
+                .thenReturn(null);
+
+        mockMvc.perform(post("/settings")
+                        .param("baseCurrency", "EUR")
+                        .param("selectedCurrencies", "USD,CZK"))
+                .andExpect(status().isOk());
+    }
 }

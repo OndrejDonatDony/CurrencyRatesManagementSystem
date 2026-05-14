@@ -110,4 +110,88 @@ public class CurrencyApiClientTest {
                 client.getLatestRates("EUR", "USD")
         );
     }
+
+    @Test
+    public void testLatestNotSuccessful() {
+        ExchangeRateApiClient client =
+                new ExchangeRateApiClient(restTemplate, "test-key");
+
+        ExchangeRateResponse response = new ExchangeRateResponse(
+                false, 123L, "EUR", "2026-04-28",
+                null,
+                null
+        );
+
+        when(restTemplate.exchange(
+                anyString(),
+                any(),
+                any(),
+                eq(ExchangeRateResponse.class)
+        )).thenReturn(ResponseEntity.ok(response));
+
+        assertThrows(ApiException.class, () ->
+                client.getLatestRates("EUR", "USD")
+        );
+    }
+
+    @Test
+    public void testTimeseriesEmptyResponse() {
+        ExchangeRateApiClient client =
+                new ExchangeRateApiClient(restTemplate, "test-key");
+
+        when(restTemplate.exchange(
+                anyString(),
+                any(),
+                any(),
+                eq(TimeseriesResponse.class)
+        )).thenReturn(ResponseEntity.ok(null));
+
+        assertThrows(ApiException.class, () ->
+                client.getTimeseries("EUR", "USD", "2026-04-27", "2026-04-28")
+        );
+    }
+
+    @Test
+    public void testTimeseriesNotSuccessful() {
+        ExchangeRateApiClient client =
+                new ExchangeRateApiClient(restTemplate, "test-key");
+
+        TimeseriesResponse response = new TimeseriesResponse(
+                false,
+                true,
+                "EUR",
+                "2026-04-27",
+                "2026-04-28",
+                null,
+                null
+        );
+
+        when(restTemplate.exchange(
+                anyString(),
+                any(),
+                any(),
+                eq(TimeseriesResponse.class)
+        )).thenReturn(ResponseEntity.ok(response));
+
+        assertThrows(ApiException.class, () ->
+                client.getTimeseries("EUR", "USD", "2026-04-27", "2026-04-28")
+        );
+    }
+
+    @Test
+    public void testTimeseriesApiFailure() {
+        ExchangeRateApiClient client =
+                new ExchangeRateApiClient(restTemplate, "test-key");
+
+        when(restTemplate.exchange(
+                anyString(),
+                any(),
+                any(),
+                eq(TimeseriesResponse.class)
+        )).thenThrow(new RestClientException("chyba"));
+
+        assertThrows(ApiException.class, () ->
+                client.getTimeseries("EUR", "USD", "2026-04-27", "2026-04-28")
+        );
+    }
 }
