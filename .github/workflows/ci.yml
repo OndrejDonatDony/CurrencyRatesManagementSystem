@@ -30,3 +30,7 @@ jobs:
         with:
           name: jacoco-report
           path: target/site/jacoco/
+
+      - name: Show coverage
+        run: |
+          grep Total target/site/jacoco/index.html
