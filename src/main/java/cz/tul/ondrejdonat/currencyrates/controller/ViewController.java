@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ViewController {
-
     private final ExchangeRateService exchangeRateService;
     private final AnalysisService analysisService;
     private final SettingsService settingsService;

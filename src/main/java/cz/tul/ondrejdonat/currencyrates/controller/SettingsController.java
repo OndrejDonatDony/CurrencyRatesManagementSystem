@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SettingsController {
-
     private final SettingsService settingsService;
 
     public SettingsController(SettingsService settingsService) {

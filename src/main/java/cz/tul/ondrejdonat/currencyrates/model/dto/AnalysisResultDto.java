@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnalysisResultDto {
-
     private String strongestCurrency;
     private Double strongestValue;
     private String weakestCurrency;

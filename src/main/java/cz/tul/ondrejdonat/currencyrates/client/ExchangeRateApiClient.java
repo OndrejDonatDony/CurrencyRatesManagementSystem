@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Component
 public class ExchangeRateApiClient {
-
     private final RestTemplate restTemplate;
     private final String apiKey;
 
@@ -89,7 +88,7 @@ public class ExchangeRateApiClient {
 
     private String getApiError(ExchangeRateResponse.ApiError error) {
         if (error == null || error.getInfo() == null) {
-            return "API vratilo chybu.";
+            return "API error.";
         }
 
         return error.getInfo();

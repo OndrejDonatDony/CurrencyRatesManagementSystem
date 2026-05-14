@@ -10,7 +10,6 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExchangeRateResponse {
-
     private boolean success;
     private Long timestamp;
     private String base;

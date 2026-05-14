@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class SettingsService {
-
     private final UserSettingsRepository userSettingsRepository;
 
     public SettingsService(UserSettingsRepository userSettingsRepository) {

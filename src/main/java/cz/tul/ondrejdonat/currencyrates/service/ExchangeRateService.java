@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class ExchangeRateService {
-
     private final ExchangeRateApiClient exchangeRateApiClient;
 
     public ExchangeRateService(ExchangeRateApiClient exchangeRateApiClient) {

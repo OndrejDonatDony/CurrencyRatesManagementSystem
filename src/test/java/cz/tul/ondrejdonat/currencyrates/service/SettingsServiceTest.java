@@ -17,10 +17,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class SettingsServiceTest {
-
     @Mock
     private UserSettingsRepository userSettingsRepository;
-
     @InjectMocks
     private SettingsService settingsService;
 

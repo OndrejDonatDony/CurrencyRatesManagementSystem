@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserSettings {
-
     @Id
     private Long id;
     private String baseCurrency;

@@ -18,13 +18,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SettingsController.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class SettingsControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
-
     @MockitoBean
     private SettingsService settingsService;
-
     @MockitoBean
     private LogService logService;
 

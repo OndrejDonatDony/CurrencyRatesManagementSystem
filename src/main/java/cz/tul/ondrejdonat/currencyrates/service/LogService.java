@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Service
 public class LogService {
-
     private final LogEntryRepository logEntryRepository;
 
     public LogService(LogEntryRepository logEntryRepository) {

@@ -11,7 +11,6 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
     private final LogService logService;
 
     public GlobalExceptionHandler(LogService logService) {

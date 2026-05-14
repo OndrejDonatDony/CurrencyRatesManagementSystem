@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/rates")
 @RestController
 public class ExchangeRateController {
-
     private final ExchangeRateService exchangeRateService;
     private final AnalysisService analysisService;
 

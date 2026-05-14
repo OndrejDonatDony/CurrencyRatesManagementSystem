@@ -14,7 +14,6 @@ import java.util.Map;
 @Slf4j
 @Service
 public class AnalysisService {
-
     private final ExchangeRateService exchangeRateService;
 
     public AnalysisService(ExchangeRateService exchangeRateService) {

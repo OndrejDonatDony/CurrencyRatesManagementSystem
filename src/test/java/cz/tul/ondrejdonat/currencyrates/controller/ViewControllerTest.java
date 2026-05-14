@@ -25,19 +25,14 @@ import cz.tul.ondrejdonat.currencyrates.model.entity.UserSettings;
 @WebMvcTest(ViewController.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class ViewControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
-
     @MockitoBean
     private ExchangeRateService exchangeRateService;
-
     @MockitoBean
     private AnalysisService analysisService;
-
     @MockitoBean
     private SettingsService settingsService;
-
     @MockitoBean
     private LogService logService;
 

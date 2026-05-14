@@ -10,7 +10,6 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TimeseriesResponse {
-
     private boolean success;
     private boolean timeseries;
     private String base;

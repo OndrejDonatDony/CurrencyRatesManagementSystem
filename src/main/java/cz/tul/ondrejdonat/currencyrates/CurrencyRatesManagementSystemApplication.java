@@ -16,13 +16,18 @@ public class CurrencyRatesManagementSystemApplication {
 
     @Bean
     CommandLineRunner runner(SettingsService settingsService) {
-        return args -> {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) {
+                if (settingsService.getSettings() == null) {
 
-            if (settingsService.getSettings() == null) {
-
-                UserSettings settings = new UserSettings(1L, "EUR", "USD,CZK,GBP");
-
-                settingsService.saveSettings(settings);
+                    UserSettings settings = new UserSettings(
+                            1L,
+                            "EUR",
+                            "USD,CZK,GBP"
+                    );
+                    settingsService.saveSettings(settings);
+                }
             }
         };
     }

@@ -18,19 +18,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ExchangeRateController.class)
 @AutoConfigureMockMvc(addFilters = false)
 public class ExchangeRateControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
-
     @MockitoBean
     private ExchangeRateService exchangeRateService;
-
     @MockitoBean
     private AnalysisService analysisService;
-
     @MockitoBean
     private LogService logService;
-
     @MockitoBean
     private SettingsService settingsService;
 

@@ -10,7 +10,6 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AverageRatesDto {
-
     private String base;
     private String startDate;
     private String endDate;
